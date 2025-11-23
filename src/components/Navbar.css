@@ -1,0 +1,28 @@
+nav {
+    display: flex;
+    flex: 1;
+    padding: 0rem 1rem;
+}
+
+nav .nav-header {
+    font-weight: 800;
+}
+
+nav .pages {
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+}
+
+nav ul {
+    display: flex;
+    gap: 0.5rem;
+}
+
+nav li {
+    list-style: none;
+}
+
+nav svg {
+    height: 1.6rem;
+}
