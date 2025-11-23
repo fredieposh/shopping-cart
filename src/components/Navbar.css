@@ -1,28 +1,57 @@
 nav {
     display: flex;
     flex: 1;
-    padding: 0rem 1rem;
+    padding: 0.4rem 2rem;
+    --black-color:  rgb(38, 38, 38);
+    --white-color:  rgb(227, 222, 222);
+    background-color: var(--black-color);
+    color:var(--white-color);
+}
+
+nav > * {
+    align-items: center;
 }
 
 nav .nav-header {
-    font-weight: 800;
+    flex: 3;
+    display: flex;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 nav .pages {
-    margin-left: auto;
+    flex: 1;
+    /* margin-left: auto; */
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 nav ul {
+    flex: 1;
     display: flex;
-    gap: 0.5rem;
+    gap: 1.5rem;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 nav li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     list-style: none;
+    height: 100%;
+    transition: color 500ms, background-color 500ms;
+}
+
+nav li:hover {
+    cursor: pointer;
+    background-color: var(--white-color);
+    color: rgb(38, 38, 38);
 }
 
 nav svg {
     height: 1.6rem;
+    fill: var(--white-color);
 }
