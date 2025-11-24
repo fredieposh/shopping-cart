@@ -1,4 +1,5 @@
-import '../components/Navbar.css'
+import { Link } from 'react-router';
+import '../components/Navbar.css';
 
 export default function Navbar() {
     return (
@@ -8,8 +9,8 @@ export default function Navbar() {
             </div>
             <div className="pages">
                 <ul>
-                    <li className="selected-page">Home</li>
-                    <li>Shop</li>
+                    <li className="selected-page"><Link to="/">Home</Link></li>
+                    <li><Link to="/shop">Shop</Link></li>
                     <li>Cart</li>
                 </ul>
                 <svg

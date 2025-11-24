@@ -1,0 +1,74 @@
+.cards-container{
+    display: flex;
+    padding:4rem 2rem;
+    /* flex-direction: column; */
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+
+    --black-color:  rgb(38, 38, 38);
+    --white-color:  rgb(227, 222, 222);
+}
+
+.cards-container .product-card {
+    width: min(200px, 33.3%);
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    transition: background-color 500ms;
+    border-radius: 10px;
+}
+
+.cards-container .product-card:hover {
+    background-color: rgb(222, 222, 222);
+}
+
+.cards-container .product-card img {
+    object-fit: contain;
+}
+
+.cards-container .product-card .product-quantity {
+    margin-top: auto;
+}
+
+.cards-container .product-card .product-quantity input{
+    text-align: center;
+}
+
+.cards-container .product-card button{
+    background-color: var(--white-color);
+    color: var(--black-color); 
+    border: 1px solid var(--black-color);
+    transition: all 500ms;
+}
+
+.cards-container .product-card button:hover{
+    background-color: var(--black-color);
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+}
+
+.cards-container .product-card .product-image {
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-spinner svg {
+    animation: spin 1000ms infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}

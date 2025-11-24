@@ -1,6 +1,5 @@
-import Home from "./Home.jsx"
 
-export default function Content() {
+export default function Content({ children }) {
     return (
         <div 
         className="page-container"
@@ -9,9 +8,10 @@ export default function Content() {
             flex: 16,
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            // justifyContent: "center",
+            overflowY: "scroll",
         }}>
-            <Home />
+            {children}
         </div>
     )
 }

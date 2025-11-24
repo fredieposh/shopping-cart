@@ -45,6 +45,21 @@ nav li {
     transition: color 500ms, background-color 500ms;
 }
 
+a {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: inherit;
+    background-color: inherit;
+}
+
+a:hover {
+    color: inherit;
+    background-color: inherit;
+}
+
 nav li:hover {
     cursor: pointer;
     background-color: var(--white-color);
