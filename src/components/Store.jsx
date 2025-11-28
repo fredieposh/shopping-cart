@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react'
-import {useOutletContext} from 'react-router';
+import {useOutletContext, useLocation} from 'react-router';
 import './Store.css'
 
 export default function Store() {
@@ -58,35 +58,70 @@ export default function Store() {
     );
 };
 
-function Card({ productObject, handleCartChange }) {
-    const [quantity, setQuantity] = useState(0);
+export function Card({ productObject, handleCartChange, cartQuantity }) {
+    const initialQantity = cartQuantity ? cartQuantity : 0;
+    const [quantity, setQuantity] = useState(initialQantity);
+    const location = useLocation();
+
     return (
-        <div className="product-card">
-            <div className="product-title">
-                <p>{productObject.title}</p>
+        <>
+        {
+        location.pathname === '/shop' ?
+            <div className="product-card">
+                <div className="product-title">
+                    <p>{productObject.title}</p>
+                </div>
+                <div className="product-image">
+                    <img
+                    src={productObject.image}
+                    alt={productObject.title}
+                    style={{height: "100px", width: "100px"}}
+                    />
+                </div>
+                <div className='product-quantity'>
+                    <label htmlFor={'quantity-'+productObject.id}>quantity:</label>
+                    <input
+                    type='number'
+                    name={'quantity-'+productObject.id}
+                    id={'quantity-'+productObject.id}
+                    min='0'
+                    max='10'
+                    step='1'
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}/>
+                </div>
+                <button onClick={() =>
+                    quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
             </div>
-            <div className="product-image">
-                <img
-                src={productObject.image}
-                alt={productObject.title}
-                style={{height: "100px", width: "100px"}}
-                />
+        :
+            <div className="product-card">
+                <div className="product-title">
+                    <p>{productObject.title}</p>
+                </div>
+                <div className="product-image">
+                    <img
+                    src={productObject.image}
+                    alt={productObject.title}
+                    style={{height: "100px", width: "100px"}}
+                    />
+                </div>
+                <div className='product-quantity'>
+                    <label htmlFor={'quantity-'+productObject.id}>quantity:</label>
+                    <input
+                    type='number'
+                    name={'quantity-'+productObject.id}
+                    id={'quantity-'+productObject.id}
+                    min='0'
+                    max='10'
+                    step='1'
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}/>
+                </div>
+                <button onClick={() =>
+                    quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
             </div>
-            <div className='product-quantity'>
-                <label htmlFor={'quantity-'+productObject.id}>quantity:</label>
-                <input
-                type='number'
-                name={'quantity-'+productObject.id}
-                id={'quantity-'+productObject.id}
-                min='0'
-                max='10'
-                step='1'
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}/>
-            </div>
-            <button onClick={() =>
-                quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
-        </div>
+        }
+        </>
     )
 }
 
