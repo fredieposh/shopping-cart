@@ -1,11 +1,12 @@
 import { useState, useEffect, Fragment } from 'react'
+import {useOutletContext} from 'react-router';
 import './Store.css'
 
 export default function Store() {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [cartProducts, handleCartChange] = useOutletContext();
     useEffect(() => {
         async function fetchData() {
             try {
@@ -51,13 +52,13 @@ export default function Store() {
     return(
         <div className="cards-container">
             {data.map((product) =>
-                    <Card productObject={product} key={product.id} />
+                    <Card productObject={product} key={product.id} handleCartChange={handleCartChange}/>
                     )}
         </div>
     );
 };
 
-function Card({ productObject }) {
+function Card({ productObject, handleCartChange }) {
     const [quantity, setQuantity] = useState(0);
     return (
         <div className="product-card">
@@ -83,7 +84,8 @@ function Card({ productObject }) {
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}/>
             </div>
-            <button> add to cart</button>
+            <button onClick={() =>
+                quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
         </div>
     )
 }
