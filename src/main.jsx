@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Home from './components/Home.jsx'
 import Store from './components/Store.jsx'
+import Cart from './components/Cart.jsx'
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {index: true, element: <Home />},
-      {path:'shop', element: <Store />}
+      {path:'shop', element: <Store />},
+      {path:'cart', element: <Cart />}
     ]
   },
 ]);

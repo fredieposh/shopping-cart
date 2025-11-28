@@ -6,10 +6,10 @@ import './App.css';
 
 function App() {
   const [cartProducts, setCartProducts] = useState({});
-
+  
   function handleCartChange({ productObj, quantity }) {
     const productId = productObj.id;
-    
+
     if(isProductIdInCartsProducts(productId)) {
       const oldCartObj = cartProducts[productId];
       const newCartObj = changeQuantity(oldCartObj, oldCartObj.quantity, quantity);

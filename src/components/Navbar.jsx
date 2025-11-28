@@ -11,7 +11,7 @@ export default function Navbar() {
                 <ul>
                     <li className="selected-page"><Link to="/">Home</Link></li>
                     <li><Link to="/shop">Shop</Link></li>
-                    <li>Cart</li>
+                    <li><Link to="/cart">Cart</Link></li>
                 </ul>
                 <svg
                 style={{maxHeight:"50px"}}
