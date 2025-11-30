@@ -60,10 +60,37 @@ a:hover {
     background-color: inherit;
 }
 
+.selected-page {
+    background-color: var(--white-color);
+    color: rgb(38, 38, 38);
+}
+
 nav li:hover {
     cursor: pointer;
     background-color: var(--white-color);
     color: rgb(38, 38, 38);
+}
+
+nav li:last-child {
+    position: relative;
+}
+
+.red-dot {
+    opacity: 0;
+    position: absolute;
+    background-color: red;
+    top: 75%;
+    left: 75%;
+    border-radius: 100px;
+    transition: opacity 500ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.red-dot.visible {
+    opacity: 100;
 }
 
 nav svg {

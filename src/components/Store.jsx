@@ -6,7 +6,7 @@ export default function Store() {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cartProducts, handleCartChange, removeItemFromCart] = useOutletContext();
+    const [cartProducts, handleCartChange, removeItemFromCart, handleRedDot] = useOutletContext();
 
     useEffect(() => {
         async function fetchData() {
@@ -58,13 +58,14 @@ export default function Store() {
                     productObject={product} 
                     handleCartChange={handleCartChange}
                     removeItemFromCart={removeItemFromCart}
+                    handleRedDot={handleRedDot}
                     />
                     )}
         </div>
     );
 };
 
-export function Card({ productObject, handleCartChange, cartQuantity, removeItemFromCart }) {
+export function Card({ productObject, handleCartChange, cartQuantity, removeItemFromCart, handleRedDot }) {
     const initialQantity = cartQuantity ? cartQuantity : 0;
     const [quantity, setQuantity] = useState(initialQantity);
     const location = useLocation();
@@ -99,8 +100,11 @@ export function Card({ productObject, handleCartChange, cartQuantity, removeItem
                 <div className='product-price'>
                     {'Price ' + productObject.price + '$'}
                 </div>
-                <button onClick={() =>
-                    quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
+                <button onClick={() => {
+                    if (quantity > 0 ) {
+                        handleCartChange({productObj: productObject, quantity})
+                        {handleRedDot(quantity)}
+                    }}}> add to cart</button>
             </div>
         :
             <div className="product-cart-card">

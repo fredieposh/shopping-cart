@@ -6,14 +6,18 @@ import './App.css';
 
 function App() {
   const [cartProducts, setCartProducts] = useState({});
+  const [redDotQuantity, setRedDotQuantity] = useState(0);
 
-  function setNewQuantity(productId, newQuantity) {
-    const objToChange = cartProducts[productId];
-    objToChange.quantity = +newQuantity;
-    console.log(objToChange);
+  function handleRedDot(quantity) {
+    const redDotElement = document.querySelector('.red-dot');
 
-    setCartProducts({...cartProducts, productId:objToChange});
-  };
+    if (!redDotElement.classList.contains('visible')) {
+      redDotElement.classList.add('visible');
+    };
+    
+    setRedDotQuantity(redDotQuantity + +quantity);
+
+  }
   
   function removeItemFromCart(productObj) {
     const productIdToRemove = productObj.id;
@@ -56,9 +60,9 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar redDotQuantity={redDotQuantity} setRedDotQuantity={setRedDotQuantity}/>
       <Content>
-        <Outlet context={[cartProducts, handleCartChange, removeItemFromCart, setNewQuantity]}/>
+        <Outlet context={[cartProducts, handleCartChange, removeItemFromCart, handleRedDot]}/>
       </Content>
     </>
   );
