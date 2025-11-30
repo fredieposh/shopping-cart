@@ -1,5 +1,8 @@
+import { useLocation } from "react-router"
 
 export default function Content({ children }) {
+    const location = useLocation();
+    const overflow = location.pathname === '/shop' ? "scroll" : null;
     return (
         <div 
         className="page-container"
@@ -9,7 +12,8 @@ export default function Content({ children }) {
             flexDirection: "column",
             alignItems: "center",
             // justifyContent: "center",
-            overflowY: "scroll",
+            overflowY: overflow,
+            height: '100vh',
         }}>
             {children}
         </div>

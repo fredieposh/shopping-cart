@@ -6,7 +6,8 @@ export default function Store() {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cartProducts, handleCartChange] = useOutletContext();
+    const [cartProducts, handleCartChange, removeItemFromCart] = useOutletContext();
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -52,13 +53,18 @@ export default function Store() {
     return(
         <div className="cards-container">
             {data.map((product) =>
-                    <Card productObject={product} key={product.id} handleCartChange={handleCartChange}/>
+                    <Card 
+                    key={product.id} 
+                    productObject={product} 
+                    handleCartChange={handleCartChange}
+                    removeItemFromCart={removeItemFromCart}
+                    />
                     )}
         </div>
     );
 };
 
-export function Card({ productObject, handleCartChange, cartQuantity }) {
+export function Card({ productObject, handleCartChange, cartQuantity, removeItemFromCart }) {
     const initialQantity = cartQuantity ? cartQuantity : 0;
     const [quantity, setQuantity] = useState(initialQantity);
     const location = useLocation();
@@ -79,7 +85,7 @@ export function Card({ productObject, handleCartChange, cartQuantity }) {
                     />
                 </div>
                 <div className='product-quantity'>
-                    <label htmlFor={'quantity-'+productObject.id}>quantity:</label>
+                    <label htmlFor={'quantity-'+productObject.id}>{'Quantity: '}</label>
                     <input
                     type='number'
                     name={'quantity-'+productObject.id}
@@ -89,36 +95,60 @@ export function Card({ productObject, handleCartChange, cartQuantity }) {
                     step='1'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}/>
+                </div>
+                <div className='product-price'>
+                    {'Price ' + productObject.price + '$'}
                 </div>
                 <button onClick={() =>
                     quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
             </div>
         :
-            <div className="product-card">
-                <div className="product-title">
-                    <p>{productObject.title}</p>
+            <div className="product-cart-card">
+                <div className="product-info">
+                    <div className="product-title">
+                        <p>{productObject.title}</p>
+                    </div>
+                    <div className="product-image">
+                        <img
+                        src={productObject.image}
+                        alt={productObject.title}
+                        style={{height: "100px", width: "100px"}}
+                        />
+                    </div>
                 </div>
-                <div className="product-image">
-                    <img
-                    src={productObject.image}
-                    alt={productObject.title}
-                    style={{height: "100px", width: "100px"}}
-                    />
+                <div className="product-amounts">
+                    <div className='product-quantity'>
+                        <label htmlFor={'quantity-'+productObject.id}>quantity:&nbsp;</label>
+                        <input
+                        type='number'
+                        name={'quantity-'+productObject.id}
+                        id={'quantity-'+productObject.id}
+                        min='0'
+                        max='10'
+                        step='1'
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}/>
+                    </div>
+                    <div className='amount-buttons'>
+                        <button
+                        onClick={() => {
+                            const newQantity = quantity - cartQuantity;
+                            quantity > 0 ? 
+                            handleCartChange({productObj: productObject, quantity: newQantity}) : 
+                            removeItemFromCart(productObject)
+                        }
+                        }> update
+                        </button>
+                        <button
+                        onClick={() =>
+                            removeItemFromCart(productObject)
+                        }> remove
+                        </button>
+                    </div>
                 </div>
-                <div className='product-quantity'>
-                    <label htmlFor={'quantity-'+productObject.id}>quantity:</label>
-                    <input
-                    type='number'
-                    name={'quantity-'+productObject.id}
-                    id={'quantity-'+productObject.id}
-                    min='0'
-                    max='10'
-                    step='1'
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}/>
-                </div>
-                <button onClick={() =>
-                    quantity > 0 && handleCartChange({productObj: productObject, quantity})}> add to cart</button>
+                    <div className="totals">
+                        total: {quantity * productObject.price + ' $'}
+                    </div>
             </div>
         }
         </>

@@ -6,9 +6,26 @@ import './App.css';
 
 function App() {
   const [cartProducts, setCartProducts] = useState({});
+
+  function setNewQuantity(productId, newQuantity) {
+    const objToChange = cartProducts[productId];
+    objToChange.quantity = +newQuantity;
+    console.log(objToChange);
+
+    setCartProducts({...cartProducts, productId:objToChange});
+  };
   
+  function removeItemFromCart(productObj) {
+    const productIdToRemove = productObj.id;
+    const newCart = {...cartProducts};
+    delete newCart[productIdToRemove];
+  
+    setCartProducts(newCart);
+  }
+
   function handleCartChange({ productObj, quantity }) {
     const productId = productObj.id;
+    console.log(quantity);
 
     if(isProductIdInCartsProducts(productId)) {
       const oldCartObj = cartProducts[productId];
@@ -41,7 +58,7 @@ function App() {
     <>
       <Navbar />
       <Content>
-        <Outlet context={[cartProducts, handleCartChange]}/>
+        <Outlet context={[cartProducts, handleCartChange, removeItemFromCart, setNewQuantity]}/>
       </Content>
     </>
   );
