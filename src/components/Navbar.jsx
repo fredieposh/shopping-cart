@@ -9,10 +9,10 @@ export default function Navbar({redDotQuantity, setRedDotQuantity}) {
         e.target.parentNode.classList.add('selected-page');
         
         if(e.target.innerHTML === 'Cart') {
-            document.querySelector('.red-dot').classList.toggle('visible');
+            document.querySelector('.red-dot').classList.remove('visible');
+            handleCartClick(e.target)
         }
 
-        handleCartClick(e.target)
     }
 
     function handleCartClick(element) {
